@@ -23,7 +23,7 @@ fn pow_new(mut base: BigDecimal, mut exp: u32, prec: u64, extra: u64) -> BigDeci
 // SA = 2(PI)r^2 + 2(PI)(r)(h)
 
 fn main() {
-    let prec: u64 = 10000;
+    let prec: u64 = 1000000;
     let extra: u64 = 100;
     let big_decimal_3: BigDecimal = BigDecimal::from(3u8);
     let big_decimal_2: BigDecimal = BigDecimal::from(2u8);
@@ -33,7 +33,7 @@ fn main() {
     // 2000 digits of Pi
     // I could make this larger, but with the issues of Windows Powershell & Due to using massive numbers making processing extremely slow, I decided not to.
     // Besides, I'm already witnessing floating point errors, even though this code is using arbitrary precision to calculate floating pointers.
-    let pi_str = include_str!("10000_digits_of_pi.txt");
+    let pi_str = include_str!("100000_digits_of_pi.txt");
     let big_decimal_PI: BigDecimal = BigDecimal::from_str(pi_str)
         .unwrap()
         .with_prec(prec + extra)
@@ -65,7 +65,8 @@ fn main() {
     println!("Second Big Value: {}", second_value.to_string());
     // final_value = SA = 2(PI)r^2 + 2(PI)(r)(h)
     let final_value: BigDecimal = BigDecimal::from(first_value + second_value)
-        .with_prec(prec);
+        .with_prec(prec)
+        .normalized();
     println!(
         "Final Big Value (Second Big Value + First Big Value): {}",
         final_value.to_string()
